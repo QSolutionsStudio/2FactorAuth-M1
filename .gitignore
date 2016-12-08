@@ -1,0 +1,37 @@
+/index.php
+/app/etc/local.xml
+/app/etc/config.xml
+
+# this method will disable all .htaccess files from all folders
+.htaccess
+
+# here are fixes no to disable deafult apache .htaccess overwrites
+!/app/.htaccess
+!/downloader/.htaccess
+!/downloader/template/.htaccess
+!/errors/.htaccess
+!/includes/.htaccess
+!/lib/.htaccess
+!/media/.htaccess
+!/media/customer/.htaccess
+!/media/downloadable/.htaccess
+!/pkginfo/.htaccess
+!/var/.htaccess
+
+# var updates
+var/
+
+# media and downloaders
+/media/
+/download/
+
+# updates not to overwrite developers settings
+# PHPStorm
+.idea/
+
+#NetBaans - if someone likes to use it
+.nbproject/
+_source/
+
+# just our favorite testing file
+test.php
