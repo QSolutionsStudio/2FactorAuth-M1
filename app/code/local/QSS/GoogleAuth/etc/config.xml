@@ -15,6 +15,12 @@
             <qss_googleauth>
                 <class>QSS_GoogleAuth_Block</class>
             </qss_googleauth>
+            <adminhtml>
+                <rewrite>
+                    <permissions_user_edit_tab_main>QSS_GoogleAuth_Block_Adminhtml_Permissions_User_Edit_Tab_Main</permissions_user_edit_tab_main>
+                    <system_account_edit_form>QSS_GoogleAuth_Block_Adminhtml_System_Account_Edit_Form</system_account_edit_form>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <models>
             <qss_googleauth>
@@ -45,6 +51,16 @@
         </resources>
     </global>
     <adminhtml>
+        <events>
+            <admin_user_save_before>
+                <observers>
+                    <qss_googleauth_observer>
+                        <model>qss_googleauth/observer</model>
+                        <method>adminUserSaveBefore</method>
+                    </qss_googleauth_observer>
+                </observers>
+            </admin_user_save_before>
+        </events>
         <layout>
             <updates>
                 <qss_googleauth>
