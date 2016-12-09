@@ -15,16 +15,16 @@ class QSS_GoogleAuth_Adminhtml_GoogleauthController extends Mage_Adminhtml_Contr
      * @var Mage_Core_Model_Config
      */
     protected $config;
-//    /**
-//     * @var QSS_GoogleAuth_Model_Mailer
-//     */
-//    protected $mailer;
+    /**
+     * @var QSS_GoogleAuth_Model_Mailer
+     */
+    protected $mailer;
 
     public function _construct()
     {
         $this->qssHelper = Mage::helper('qss_googleauth');
         $this->config = Mage::getModel('core/config');
-//        $this->mailer = $mailer;
+        $this->mailer = Mage::getModel('qss_googleauth/mailer');
 
         parent::_construct();
     }
@@ -40,16 +40,16 @@ class QSS_GoogleAuth_Adminhtml_GoogleauthController extends Mage_Adminhtml_Contr
                 0
             );
 
-//            $this->sendNewSecret($newSecret);
+            $this->sendNewSecret($newSecret);
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             $this->_getSession()->addException($e, $e->getMessage());
         }
         $this->_getSession()->addSuccess($this->__('Your secret code has been updated.'));
     }
 
-//    protected function sendNewSecret($newSecret)
-//    {
-//        $this->mailer->sendNewSecret($newSecret);
-//    }
+    protected function sendNewSecret($newSecret)
+    {
+        $this->mailer->sendNewSecret($newSecret);
+    }
 }

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
+    <modules>
+        <QSS_GoogleAuth>
+            <version>1.0.0</version>
+        </QSS_GoogleAuth>
+    </modules>
     <global>
         <helpers>
             <qss_googleauth>
@@ -11,6 +16,33 @@
                 <class>QSS_GoogleAuth_Block</class>
             </qss_googleauth>
         </blocks>
+        <models>
+            <qss_googleauth>
+                <class>QSS_GoogleAuth_Model</class>
+            </qss_googleauth>
+        </models>
+        <template>
+            <email>
+                <qss_googleauth_email_new_secret translate="label" module="qss_googleauth">
+                    <label>New Secret</label>
+                    <file>qss/googleauth/new_secret.html</file>
+                    <type>html</type>
+                </qss_googleauth_email_new_secret>
+                <qss_googleauth_email_user translate="label" module="qss_googleauth">
+                    <label>User</label>
+                    <file>qss/googleauth/user.html</file>
+                    <type>html</type>
+                </qss_googleauth_email_user>
+            </email>
+        </template>
+        <resources>
+            <qss_googleauth_setup>
+                <setup>
+                    <module>QSS_GoogleAuth</module>
+                    <class>QSS_GoogleAuth_Model_Installer</class>
+                </setup>
+            </qss_googleauth_setup>
+        </resources>
     </global>
     <adminhtml>
         <layout>
