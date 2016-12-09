@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <global>
+        <helpers>
+            <qss_googleauth>
+                <class>QSS_GoogleAuth_Helper</class>
+            </qss_googleauth>
+        </helpers>
+        <blocks>
+            <qss_googleauth>
+                <class>QSS_GoogleAuth_Block</class>
+            </qss_googleauth>
+        </blocks>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <qss_googleauth>
+                    <file>qss/googleauth.xml</file>
+                </qss_googleauth>
+            </updates>
+        </layout>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <qss_googleauth before="Mage_Adminhtml">QSS_GoogleAuth_Adminhtml</qss_googleauth>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <default>
+        <qss_googleauth>
+            <general>
+                <enabled>0</enabled>
+            </general>
+        </qss_googleauth>
+    </default>
+</config>

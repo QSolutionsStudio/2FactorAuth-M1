@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <sections>
+        <qss_googleauth translate="label" module="qss_googleauth">
+            <label>Google Authenticator</label>
+            <tab>advanced</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <generate translate="label">
+                            <label>Generate</label>
+                            <comment>(Re)generate secret code. (It will be sent to all admin users.)</comment>
+                            <frontend_model>qss_googleauth/adminhtml_system_config_generate</frontend_model>
+                            <sort_order>2</sort_order>
+                            <type>text</type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </generate>
+                        <qr_code translate="label">
+                            <label>Secret</label>
+                            <comment>Scan this QR code with your Google Authenticator app or enter the secret code, in order to be able to generate login codes.</comment>
+                            <frontend_model>qss_googleauth/adminhtml_system_config_qrcode</frontend_model>
+                            <sort_order>3</sort_order>
+                            <type>text</type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </qr_code>
+                    </fields>
+                </general>
+            </groups>
+        </qss_googleauth>
+    </sections>
+</config>
