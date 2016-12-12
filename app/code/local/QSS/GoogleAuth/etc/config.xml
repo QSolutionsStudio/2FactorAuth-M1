@@ -26,6 +26,11 @@
             <qss_googleauth>
                 <class>QSS_GoogleAuth_Model</class>
             </qss_googleauth>
+            <admin>
+                <rewrite>
+                    <user>QSS_GoogleAuth_Model_User</user>
+                </rewrite>
+            </admin>
         </models>
         <template>
             <email>

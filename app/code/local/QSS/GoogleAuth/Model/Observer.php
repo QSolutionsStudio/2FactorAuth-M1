@@ -21,15 +21,6 @@ class QSS_GoogleAuth_Model_Observer
         }
     }
 
-    public function validateLoginCode(Varien_Event_Observer $observer)
-    {
-        $helper = Mage::helper('qss_googleauth');
-        /* @var $helper QSS_GoogleAuth_Helper_Data */
-        if ($helper->isEnabled()) {
-            // @TODO: implement and add proper event in config.xml
-        }
-    }
-
     protected function _isSaveAction()
     {
         return in_array(
