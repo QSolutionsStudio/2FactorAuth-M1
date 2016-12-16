@@ -25,7 +25,7 @@ class QSS_GoogleAuth_Shell extends Mage_Shell_Abstract
                     /* @var $mailer QSS_GoogleAuth_Model_Mailer */
                     $mailer->sendSecretToUser($user);
                 }
-                $user->save();
+                $this->_save($user);
             }
             else {
                 $error = <<<USER
@@ -40,8 +40,8 @@ USER;
             $user = $this->_getUser($username);
 
             if ($user->getId()) {
-                $user->setData('googleauth_enabled', '0')
-                    ->save();
+                $user->setData('googleauth_enabled', '0');
+                $this->_save($user);
             }
             else {
                 $error = <<<USER
@@ -61,16 +61,15 @@ USER;
                 if ($user->dataHasChangedFor('googleauth_enabled')) {
                     $mailer->sendSecretToUser($user);
                 }
-                $user->save();
+                $this->_save($user);
             }
         }
         elseif (isset($this->_args['disableall'])) {
             $users = $this->_getUserCollection();
 
             foreach ($users as $user) {
-                $user
-                    ->setData('googleauth_enabled', '0')
-                    ->save();
+                $user->setData('googleauth_enabled', '0');
+                $this->_save($user);
             }
 
         }
@@ -109,6 +108,37 @@ USAGE;
     protected function _getUserCollection()
     {
         return Mage::getModel('admin/user')->getCollection();
+    }
+
+    /**
+     * @param Mage_Admin_Model_User $user
+     */
+    protected function _save($user)
+    {
+        if ($user->dataHasChangedFor('googleauth_enabled')) {
+            $googleauthEnabled = $user->getData('googleauth_enabled');
+            $this->_getConnection()->update(
+                $user->getResource()->getMainTable(),
+                array('googleauth_enabled' => $googleauthEnabled),
+                "{$user->getIdFieldName()} = {$user->getId()}"
+            );
+        }
+    }
+
+    /**
+     * @return Mage_Core_Model_Resource
+     */
+    protected function _getResource()
+    {
+        return Mage::getModel('core/resource');
+    }
+
+    /**
+     * @return Varien_Db_Adapter_Interface
+     */
+    protected function _getConnection()
+    {
+        return $this->_getResource()->getConnection('core_write');
     }
 }
 
