@@ -9,10 +9,6 @@ class QSS_GoogleAuth_Model_Mailer
     const EMAIL_NEW_SECRET = 'qss_googleauth_email_new_secret';
     const EMAIL_USER = 'qss_googleauth_email_user';
     /**
-     * @var QSS_GoogleAuth_Helper_Data
-     */
-    protected $qssHelper;
-    /**
      * @var Mage_Admin_Model_Resource_User_Collection
      */
     protected $collection;
@@ -21,20 +17,14 @@ class QSS_GoogleAuth_Model_Mailer
      */
     protected $recipients;
     /**
-     * @var Mage_Admin_Model_Session
-     */
-    protected $authSession;
-    /**
      * @var Mage_Core_Model_Email_Template_Mailer
      */
     protected $coreMailer;
 
     public function __construct()
     {
-        $this->qssHelper = Mage::helper('qss_googleauth');
         $this->coreMailer = Mage::getModel('core/email_template_mailer');
         $this->collection = Mage::getResourceModel('admin/user_collection');
-        $this->authSession = Mage::getModel('admin/session');
 
         $this->recipients = [];
 
@@ -50,7 +40,7 @@ class QSS_GoogleAuth_Model_Mailer
      */
     public function sendNewSecret($newSecret)
     {
-        $this->sendSecret($newSecret, $this->authSession->getUser(), self::EMAIL_NEW_SECRET, $this->recipients);
+        $this->sendSecret($newSecret, $this->getAuthSession()->getUser(), self::EMAIL_NEW_SECRET, $this->recipients);
     }
 
     /**
@@ -58,7 +48,7 @@ class QSS_GoogleAuth_Model_Mailer
      */
     public function sendSecretToUser($user)
     {
-        $this->sendSecret($this->qssHelper->getSecret(), $user, self::EMAIL_USER, [$user->getName() => $user->getEmail()]);
+        $this->sendSecret($this->getQssHelper()->getSecret(), $user, self::EMAIL_USER, [$user->getName() => $user->getEmail()]);
     }
 
     /**
@@ -88,12 +78,28 @@ class QSS_GoogleAuth_Model_Mailer
             ->setTemplateParams(
                     [
                         'secret' => $secret,
-                        'qrcode' => $this->qssHelper->getQRCodeUrl($secret)
+                        'qrcode' => $this->getQssHelper()->getQRCodeUrl($secret)
                     ]
                 )
             ->setSender($sender)
             ->setStoreId(0);
 
         $this->coreMailer->send();
+    }
+
+    /**
+     * @return QSS_GoogleAuth_Helper_Data
+     */
+    public function getQssHelper()
+    {
+        return Mage::helper('qss_googleauth');
+    }
+
+    /**
+     * @return Mage_Admin_Model_Session
+     */
+    public function getAuthSession()
+    {
+        return Mage::getSingleton('admin/session');
     }
 }

@@ -7,33 +7,11 @@
 
 class QSS_GoogleAuth_Adminhtml_GoogleauthController extends Mage_Adminhtml_Controller_Action
 {
-    /**
-     * @var QSS_GoogleAuth_Helper_Data
-     */
-    protected $qssHelper;
-    /**
-     * @var Mage_Core_Model_Config
-     */
-    protected $config;
-    /**
-     * @var QSS_GoogleAuth_Model_Mailer
-     */
-    protected $mailer;
-
-    public function _construct()
-    {
-        $this->qssHelper = Mage::helper('qss_googleauth');
-        $this->config = Mage::getModel('core/config');
-        $this->mailer = Mage::getModel('qss_googleauth/mailer');
-
-        parent::_construct();
-    }
-
     public function generateAction()
     {
-        $newSecret = $this->qssHelper->authenticator->createSecret();
+        $newSecret = $this->getQssHelper()->authenticator->createSecret();
         try {
-            $this->config->saveConfig(
+            $this->getConfig()->saveConfig(
                 QSS_GoogleAuth_Helper_Data::SECRET_CONFIG_PATH,
                 $newSecret,
                 'default',
@@ -50,6 +28,30 @@ class QSS_GoogleAuth_Adminhtml_GoogleauthController extends Mage_Adminhtml_Contr
 
     protected function sendNewSecret($newSecret)
     {
-        $this->mailer->sendNewSecret($newSecret);
+        $this->getMailer()->sendNewSecret($newSecret);
+    }
+
+    /**
+     * @return QSS_GoogleAuth_Helper_Data
+     */
+    public function getQssHelper()
+    {
+        return Mage::helper('qss_googleauth');
+    }
+
+    /**
+     * @return QSS_GoogleAuth_Model_Mailer
+     */
+    public function getMailer()
+    {
+        return Mage::getModel('qss_googleauth/mailer');
+    }
+
+    /**
+     * @return Mage_Core_Model_Config
+     */
+    public function getConfig()
+    {
+        return Mage::getModel('core/config');
     }
 }

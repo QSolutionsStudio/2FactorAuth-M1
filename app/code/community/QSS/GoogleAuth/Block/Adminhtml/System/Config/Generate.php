@@ -24,7 +24,7 @@ class QSS_GoogleAuth_Block_Adminhtml_System_Config_Generate extends Mage_Adminht
         $url = $this->getUrl('adminhtml/googleauth/generate');
 
         return <<<HTML
-<button class="action-default scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="new Ajax.Request('$url', {onComplete: function(){location.reload()}});return false;"$disabled>$generate</button>
+<button onclick="new Ajax.Request('$url', {onComplete: function(){location.reload()}});return false;"$disabled>$generate</button>
 HTML;
     }
 }
