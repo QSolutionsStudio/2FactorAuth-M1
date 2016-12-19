@@ -3,7 +3,7 @@
 !/shell/googleauth.php
 !/app/code/community/QSS/*
 !/app/code/local/QSS/*
-!/lib/PHPGangsta/GoogleAuthenticator.php
+!/lib/PHPGangsta
 !/app/etc/modules/QSS_*
 
 !/app/design/*/*/*/*/qss
