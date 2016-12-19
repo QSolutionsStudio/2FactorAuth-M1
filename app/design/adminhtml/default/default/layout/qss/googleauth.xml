@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout>
+    <adminhtml_index_login>
+        <reference name="content">
+            <action method="setTemplate">
+                <template>qss/googleauth/login.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_index_login>
+</layout>
