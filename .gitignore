@@ -19,8 +19,8 @@ LICENSE*
 !.gitignore
 /shell/*
 !/shell/googleauth.php
-/skin/*/*/default/*
-!/skin/*/*/default/qss
+/skin/*/*/*/*
+!/skin/*/*/*/qss
 /app/design/*/*/*/*/*
 !/app/design/*/*/*/*/qss
 /lib/*
