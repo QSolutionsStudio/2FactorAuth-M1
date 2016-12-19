@@ -1,9 +1,9 @@
 *
 !/.gitignore
 !/shell/googleauth.php
-!/app/code/community/QSS
-!/app/code/local/QSS
-!/lib/PHPGangsta
+!/app/code/community/QSS/*
+!/app/code/local/QSS/*
+!/lib/PHPGangsta/GoogleAuthenticator.php
 !/app/etc/modules/QSS_*
 
 !/app/design/*/*/*/*/qss
