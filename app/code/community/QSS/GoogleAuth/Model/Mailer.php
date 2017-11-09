@@ -1,7 +1,9 @@
 <?php
 /**
- * Created by Q-Solutions Studio.
- * Developer: Wojciech M. Wnuk <wojtek@qsolutionsstudio.com>
+ * @category    QSS
+ * @package     QSS_GoogleAuth
+ * @author      Wojciech M. Wnuk <wojtek@qsolutionsstudio.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class QSS_GoogleAuth_Model_Mailer
@@ -11,26 +13,26 @@ class QSS_GoogleAuth_Model_Mailer
     /**
      * @var Mage_Admin_Model_Resource_User_Collection
      */
-    protected $collection;
+    protected $_collection;
     /**
      * @var array
      */
-    protected $recipients;
+    protected $_recipients;
     /**
      * @var Mage_Core_Model_Email_Template_Mailer
      */
-    protected $coreMailer;
+    protected $_coreMailer;
 
     public function __construct()
     {
-        $this->coreMailer = Mage::getModel('core/email_template_mailer');
-        $this->collection = Mage::getResourceModel('admin/user_collection');
+        $this->_coreMailer = Mage::getModel('core/email_template_mailer');
+        $this->_collection = Mage::getResourceModel('admin/user_collection');
 
-        $this->recipients = [];
+        $this->_recipients = [];
 
-        foreach ($this->collection as $user) { /* @var $user Mage_Admin_Model_User */
+        foreach ($this->_collection as $user) { /* @var $user Mage_Admin_Model_User */
             if ($user->getIsActive() && $user->getData('googleauth_enabled')) {
-                $this->recipients[$user->getName()] = $user->getEmail();
+                $this->_recipients[$user->getName()] = $user->getEmail();
             }
         }
     }
@@ -40,7 +42,7 @@ class QSS_GoogleAuth_Model_Mailer
      */
     public function sendNewSecret($newSecret)
     {
-        $this->sendSecret($newSecret, $this->getAuthSession()->getUser(), self::EMAIL_NEW_SECRET, $this->recipients);
+        $this->sendSecret($newSecret, $this->getAuthSession()->getUser(), self::EMAIL_NEW_SECRET, $this->_recipients);
     }
 
     /**
@@ -72,7 +74,7 @@ class QSS_GoogleAuth_Model_Mailer
         foreach ($recipients as $name => $email) {
             $emailInfo->addTo($email, $name);
         }
-        $this->coreMailer
+        $this->_coreMailer
             ->addEmailInfo($emailInfo)
             ->setTemplateId($templateIdentifier)
             ->setTemplateParams(
@@ -84,7 +86,7 @@ class QSS_GoogleAuth_Model_Mailer
             ->setSender($sender)
             ->setStoreId(0);
 
-        $this->coreMailer->send();
+        $this->_coreMailer->send();
     }
 
     /**

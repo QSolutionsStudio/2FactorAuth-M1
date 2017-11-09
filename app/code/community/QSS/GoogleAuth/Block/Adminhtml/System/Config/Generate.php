@@ -1,7 +1,9 @@
 <?php
 /**
- * Created by Q-Solutions Studio.
- * Developer: Wojciech M. Wnuk <wojtek@qsolutionsstudio.com>
+ * @category    QSS
+ * @package     QSS_GoogleAuth
+ * @author      Wojciech M. Wnuk <wojtek@qsolutionsstudio.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class QSS_GoogleAuth_Block_Adminhtml_System_Config_Generate extends Mage_Adminhtml_Block_System_Config_Form_Field
@@ -9,18 +11,23 @@ class QSS_GoogleAuth_Block_Adminhtml_System_Config_Generate extends Mage_Adminht
     /**
      * @var QSS_GoogleAuth_Helper_Data
      */
-    protected $helper;
+    protected $_helper;
+
 
     protected function _construct()
     {
         parent::_construct();
-        $this->helper = Mage::helper('qss_googleauth');
+        $this->_helper = Mage::helper('qss_googleauth');
     }
 
+    /**
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return string
+     */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $generate = $this->__('Generate secret');
-        $disabled = $this->helper->isEnabledInConfig() ? '' : ' disabled';
+        $disabled = $this->_helper->isEnabledInConfig() ? '' : ' disabled';
         $url = $this->getUrl('adminhtml/googleauth/generate');
 
         return <<<HTML

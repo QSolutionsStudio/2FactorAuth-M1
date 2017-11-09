@@ -1,12 +1,16 @@
 
 <?php
 /**
-     * Created by Q-Solutions Studio.
-     * Developer: Wojciech M. Wnuk <wojtek@qsolutionsstudio.com>
-     */
-
+ * @category    QSS
+ * @package     QSS_GoogleAuth
+ * @author      Wojciech M. Wnuk <wojtek@qsolutionsstudio.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class QSS_GoogleAuth_Adminhtml_GoogleauthController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @throws Exception
+     */
     public function generateAction()
     {
         $newSecret = $this->getQssHelper()->authenticator->createSecret();
@@ -18,6 +22,8 @@ class QSS_GoogleAuth_Adminhtml_GoogleauthController extends Mage_Adminhtml_Contr
                 0
             );
 
+            Mage::app()->getCacheInstance()->clean(['config']);
+
             $this->sendNewSecret($newSecret);
         }
         catch (Exception $e) {
@@ -26,6 +32,9 @@ class QSS_GoogleAuth_Adminhtml_GoogleauthController extends Mage_Adminhtml_Contr
         $this->_getSession()->addSuccess($this->__('Your secret code has been updated.'));
     }
 
+    /**
+     * @param $newSecret
+     */
     protected function sendNewSecret($newSecret)
     {
         $this->getMailer()->sendNewSecret($newSecret);

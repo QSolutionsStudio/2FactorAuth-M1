@@ -1,7 +1,9 @@
 <?php
 /**
- * Created by Q-Solutions Studio.
- * Developer: Wojciech M. Wnuk <wojtek@qsolutionsstudio.com>
+ * @category    QSS
+ * @package     QSS_GoogleAuth
+ * @author      Wojciech M. Wnuk <wojtek@qsolutionsstudio.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class QSS_GoogleAuth_Block_Adminhtml_System_Config_Qrcode extends Mage_Adminhtml_Block_System_Config_Form_Field
@@ -9,12 +11,12 @@ class QSS_GoogleAuth_Block_Adminhtml_System_Config_Qrcode extends Mage_Adminhtml
     /**
      * @var QSS_GoogleAuth_Helper_Data
      */
-    protected $helper;
+    protected $_helper;
 
     protected function _construct()
     {
         parent::_construct();
-        $this->helper = Mage::helper('qss_googleauth');
+        $this->_helper = Mage::helper('qss_googleauth');
     }
 
     /**
@@ -22,7 +24,7 @@ class QSS_GoogleAuth_Block_Adminhtml_System_Config_Qrcode extends Mage_Adminhtml
      */
     public function getQRCodeUrl()
     {
-        return $this->helper->getQRCodeUrl();
+        return $this->_helper->getQRCodeUrl();
     }
 
     /**
@@ -33,7 +35,7 @@ class QSS_GoogleAuth_Block_Adminhtml_System_Config_Qrcode extends Mage_Adminhtml
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        if (!$this->helper->isEnabled()) {
+        if (!$this->_helper->isEnabled()) {
             return __('Code not yet generated.');
         }
 
@@ -49,6 +51,6 @@ HTML;
      */
     protected function _getSecret()
     {
-        return $this->helper->getSecret();
+        return $this->_helper->getSecret();
     }
 }
