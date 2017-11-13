@@ -16,6 +16,12 @@ class QSS_GoogleAuth_Model_User extends Mage_Admin_Model_User
      */
     public function authenticate($username, $password)
     {
+        $helper = Mage::helper('qss_googleauth');
+        /* @var $helper QSS_GoogleAuth_Helper_Data */
+        if (!$helper->isEnabledInConfig()) {
+            return parent::authenticate($username, $password);
+        }
+
         $config = Mage::getStoreConfigFlag('admin/security/use_case_sensitive_login');
         $result = false;
 
@@ -30,8 +36,6 @@ class QSS_GoogleAuth_Model_User extends Mage_Admin_Model_User
             if (!!$this->getData('googleauth_enabled')) {
                 $postData = Mage::app()->getRequest()->getPost('login', array('code' => ''));
                 $loginCode = $postData['code'];
-                $helper = Mage::helper('qss_googleauth');
-                /* @var $helper QSS_GoogleAuth_Helper_Data */
                 $isValid = $helper->authenticator->verifyCode($helper->getSecret(), $loginCode);
 
                 if (!$isValid) {
