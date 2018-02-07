@@ -26,7 +26,6 @@
             <adminhtml>
                 <rewrite>
                     <permissions_user_edit_tab_main>QSS_GoogleAuth_Block_Adminhtml_Permissions_User_Edit_Tab_Main</permissions_user_edit_tab_main>
-                    <system_account_edit_form>QSS_GoogleAuth_Block_Adminhtml_System_Account_Edit_Form</system_account_edit_form>
                 </rewrite>
             </adminhtml>
         </blocks>
